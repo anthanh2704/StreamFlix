@@ -25,11 +25,11 @@ A relational database system that powers an online video-streaming platform, imp
 
 ```
 video-streaming-db/
-├── database/
+├── streamflix-database/
 │   ├── 01_schema.sql         ← DDL: 16 tables, FKs, triggers, views, indexes
 │   ├── 02_sample_data.sql    ← Sample data (10 users, 10 videos, etc.)
 │   └── 03_queries.sql        ← 25 queries: basic → advanced
-├── backend/                  ← Spring Boot 3 API
+├── streamflix-backend/                  ← Spring Boot 3 API
 │   ├── pom.xml
 │   └── src/main/
 │       ├── java/com/streamflix/
@@ -41,11 +41,11 @@ video-streaming-db/
 │       │   ├── exception/    ← Global error handler
 │       │   └── security/     ← HTTP Basic + BCrypt config
 │       └── resources/application.yml
-├── frontend/
+├── streamflix-frontend/
 │   ├── index.html            ← Single-page demo UI
 │   ├── styles.css
 │   └── app.js
-└── docs/
+└── streamflix-docs/
     ├── ERD.md                ← Entity-Relationship diagram
     ├── RELATIONAL_SCHEMA.md  ← ERD → relational translation
     ├── NORMALIZATION.md      ← 1NF → 2NF → 3NF → BCNF analysis
@@ -63,14 +63,14 @@ video-streaming-db/
 mysql -u root -p
 
 # Run the three SQL files in order
-mysql> SOURCE database/01_schema.sql;
-mysql> SOURCE database/02_sample_data.sql;
-mysql> SOURCE database/03_queries.sql;       -- optional, runs the demo queries
+mysql> SOURCE streamflix-database/01_schema.sql;
+mysql> SOURCE streamflix-database/02_sample_data.sql;
+mysql> SOURCE streamflix-database/03_queries.sql;       -- optional, runs the demo queries
 ```
 
 ### 2. Configure the backend
 
-Edit `backend/src/main/resources/application.yml` if your MySQL credentials differ from `root / root`:
+Edit `streamflix-backend/src/main/resources/application.yml` if your MySQL credentials differ from `root / root`:
 
 ```yaml
 spring:
@@ -83,7 +83,7 @@ spring:
 ### 3. Build and run
 
 ```bash
-cd backend
+cd streamflix-backend
 mvn spring-boot:run
 ```
 
@@ -105,7 +105,7 @@ mvn spring-boot:run -Dspring-boot.run.profiles=h2
 ### 5. Open the frontend
 
 ```bash
-cd frontend
+cd streamflix-frontend
 python3 -m http.server 5173
 # then open http://localhost:5173
 ```
