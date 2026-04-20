@@ -21,16 +21,16 @@ import java.util.List;
 @RequiredArgsConstructor
 public class VideoController {
 
-    private final VideoService    videoService;
-    private final WatchService    watchService;
+    private final VideoService videoService;
+    private final WatchService watchService;
     private final ReactionService reactionService;
-    private final UserService     userService;
+    private final UserService userService;
 
-    // ---------------- Browsing & search (public) ----------------
+    // Browsing & search (public)
 
     @GetMapping
     public ApiResponse<Page<VideoResponse>> list(
-            @RequestParam(defaultValue = "0")  int page,
+            @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {
         Pageable p = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "uploadDate"));
         return ApiResponse.ok(videoService.listPublished(p).map(VideoResponse::fromEntity));
@@ -39,7 +39,7 @@ public class VideoController {
     @GetMapping("/search")
     public ApiResponse<Page<VideoResponse>> search(
             @RequestParam String q,
-            @RequestParam(defaultValue = "0")  int page,
+            @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {
         Pageable p = PageRequest.of(page, size);
         return ApiResponse.ok(videoService.search(q, p).map(VideoResponse::fromEntity));
@@ -47,7 +47,7 @@ public class VideoController {
 
     @GetMapping("/trending")
     public ApiResponse<List<VideoResponse>> trending(
-            @RequestParam(defaultValue = "7")  int days,
+            @RequestParam(defaultValue = "7") int days,
             @RequestParam(defaultValue = "10") int limit) {
         return ApiResponse.ok(videoService.trending(days, limit)
                 .stream().map(VideoResponse::fromEntity).toList());
@@ -56,7 +56,7 @@ public class VideoController {
     @GetMapping("/category/{categoryId}")
     public ApiResponse<Page<VideoResponse>> byCategory(
             @PathVariable Integer categoryId,
-            @RequestParam(defaultValue = "0")  int page,
+            @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {
         Pageable p = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "uploadDate"));
         return ApiResponse.ok(videoService.byCategory(categoryId, p).map(VideoResponse::fromEntity));
@@ -67,7 +67,7 @@ public class VideoController {
         return ApiResponse.ok(VideoResponse.fromEntity(videoService.findById(videoId)));
     }
 
-    // ---------------- Creation (authenticated creator) ----------------
+    // Creation (authenticated creator)
 
     @PostMapping("/channel/{channelId}")
     public ApiResponse<VideoResponse> upload(
@@ -83,7 +83,7 @@ public class VideoController {
         return ApiResponse.ok("Video removed", null);
     }
 
-    // ---------------- Interaction (authenticated) ----------------
+    // Interaction (authenticated)
 
     @PostMapping("/{videoId}/watch")
     public ApiResponse<Object> watch(
@@ -111,7 +111,7 @@ public class VideoController {
         return ApiResponse.ok(reactionService.react(userId, videoId, VideoReaction.Reaction.DISLIKE));
     }
 
-    // ---------------- Recommendations ----------------
+    // Recommendations
 
     @GetMapping("/recommendations")
     public ApiResponse<List<VideoResponse>> recommendations(

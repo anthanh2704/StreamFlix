@@ -10,7 +10,11 @@ import java.util.Objects;
 @Entity
 @Table(name = "video_reaction")
 @IdClass(VideoReaction.VideoReactionId.class)
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class VideoReaction {
 
     @Id
@@ -36,22 +40,32 @@ public class VideoReaction {
     @JoinColumn(name = "video_id", insertable = false, updatable = false)
     private Video video;
 
-    public enum Reaction { LIKE, DISLIKE }
+    public enum Reaction {
+        LIKE, DISLIKE
+    }
 
     /** Composite primary key */
-    @Getter @Setter @NoArgsConstructor @AllArgsConstructor
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class VideoReactionId implements Serializable {
         private Long userId;
         private Long videoId;
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (!(o instanceof VideoReactionId that)) return false;
+            if (this == o)
+                return true;
+            if (!(o instanceof VideoReactionId that))
+                return false;
             return Objects.equals(userId, that.userId) &&
-                   Objects.equals(videoId, that.videoId);
+                    Objects.equals(videoId, that.videoId);
         }
+
         @Override
-        public int hashCode() { return Objects.hash(userId, videoId); }
+        public int hashCode() {
+            return Objects.hash(userId, videoId);
+        }
     }
 }

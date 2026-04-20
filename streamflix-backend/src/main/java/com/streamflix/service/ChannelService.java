@@ -18,9 +18,9 @@ import java.util.List;
 @Transactional
 public class ChannelService {
 
-    private final ChannelRepository              channelRepository;
-    private final ChannelSubscriptionRepository  subscriptionRepository;
-    private final UserService                    userService;
+    private final ChannelRepository channelRepository;
+    private final ChannelSubscriptionRepository subscriptionRepository;
+    private final UserService userService;
 
     public Channel createChannel(Long ownerUserId, String name, String description) {
         User owner = userService.findById(ownerUserId);
@@ -42,7 +42,9 @@ public class ChannelService {
     }
 
     @Transactional(readOnly = true)
-    public List<Channel> all() { return channelRepository.findAll(); }
+    public List<Channel> all() {
+        return channelRepository.findAll();
+    }
 
     public String subscribe(Long userId, Long channelId) {
         findById(channelId);

@@ -3,12 +3,8 @@ package com.streamflix;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-/**
- * StreamFlix – Video Streaming Database
- * Principles of Database Management (IT079IU)
- *
- * Entry point of the Spring Boot application.
- */
+// Entry point of the Spring Boot application.
+
 @SpringBootApplication
 public class StreamflixBackendApplication {
 

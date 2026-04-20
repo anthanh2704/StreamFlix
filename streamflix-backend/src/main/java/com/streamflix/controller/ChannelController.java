@@ -18,10 +18,10 @@ import java.util.Map;
 public class ChannelController {
 
     private final ChannelService channelService;
-    private final UserService    userService;
+    private final UserService userService;
 
     public record ChannelView(Long channelId, String name, String description,
-                               Long subscriberCount, String ownerUsername) {
+            Long subscriberCount, String ownerUsername) {
         public static ChannelView fromEntity(Channel c) {
             return new ChannelView(c.getChannelId(), c.getChannelName(),
                     c.getDescription(), c.getSubscriberCount(),
@@ -43,7 +43,7 @@ public class ChannelController {
     /** Create your own channel — must be authenticated. */
     @PostMapping
     public ApiResponse<ChannelView> create(
-            @RequestBody Map<String,String> body,
+            @RequestBody Map<String, String> body,
             @AuthenticationPrincipal UserDetails principal) {
         Long userId = userService.findByUsername(principal.getUsername()).getUserId();
         Channel ch = channelService.createChannel(userId,

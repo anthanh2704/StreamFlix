@@ -20,12 +20,12 @@ import java.util.Set;
 @Transactional
 public class VideoService {
 
-    private final VideoRepository         videoRepository;
-    private final ChannelRepository       channelRepository;
-    private final CategoryRepository      categoryRepository;
-    private final TagRepository           tagRepository;
+    private final VideoRepository videoRepository;
+    private final ChannelRepository channelRepository;
+    private final CategoryRepository categoryRepository;
+    private final TagRepository tagRepository;
 
-    /** Upload a new video for a given channel. */
+    // Upload a new video for a given channel.
     public Video uploadVideo(Long channelId, VideoCreateRequest req) {
         Channel channel = channelRepository.findById(channelId)
                 .orElseThrow(() -> new ResourceNotFoundException("Channel", channelId));
@@ -79,7 +79,8 @@ public class VideoService {
 
     @Transactional(readOnly = true)
     public Page<Video> search(String q, Pageable pageable) {
-        if (q == null || q.isBlank()) return listPublished(pageable);
+        if (q == null || q.isBlank())
+            return listPublished(pageable);
         return videoRepository.search(q.trim(), pageable);
     }
 
@@ -100,7 +101,7 @@ public class VideoService {
 
     public void delete(Long id) {
         Video v = findById(id);
-        v.setStatus(Video.Status.REMOVED);       // soft delete preserves analytics
+        v.setStatus(Video.Status.REMOVED); // soft delete preserves analytics
         videoRepository.save(v);
     }
 }

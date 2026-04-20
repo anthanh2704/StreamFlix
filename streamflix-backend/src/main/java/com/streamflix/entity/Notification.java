@@ -6,10 +6,12 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "notification",
-       indexes = @Index(name = "idx_notif_user_read",
-                        columnList = "user_id, is_read, created_at DESC"))
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
+@Table(name = "notification", indexes = @Index(name = "idx_notif_user_read", columnList = "user_id, is_read, created_at DESC"))
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Notification {
 
     @Id
@@ -37,5 +39,7 @@ public class Notification {
     @Column(name = "created_at", insertable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    public enum Type { NEW_VIDEO, COMMENT_REPLY, SUB_EXPIRING, SYSTEM }
+    public enum Type {
+        NEW_VIDEO, COMMENT_REPLY, SUB_EXPIRING, SYSTEM
+    }
 }

@@ -1,92 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>StreamFlix — Video Streaming Demo</title>
-<link rel="stylesheet" href="styles.css"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StreamFlix — Video Streaming Demo</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
 
-<header class="topbar">
+  <header class="topbar">
     <div class="brand">🎬 <span>StreamFlix</span></div>
     <input id="search" type="text" placeholder="Search videos..." />
     <div class="auth">
-        <span id="authStatus" class="muted">Not signed in</span>
-        <button id="signInBtn">Sign in</button>
-        <button id="registerBtn">Register</button>
-        <button id="signOutBtn" hidden>Sign out</button>
+      <span id="authStatus" class="muted">Not signed in</span>
+      <button id="signInBtn">Sign in</button>
+      <button id="registerBtn">Register</button>
+      <button id="signOutBtn" hidden>Sign out</button>
     </div>
-</header>
+  </header>
 
-<nav class="tabs">
+  <nav class="tabs">
     <button class="tab active" data-view="home">Home</button>
-    <button class="tab"         data-view="trending">Trending</button>
-    <button class="tab"         data-view="recommended">For You</button>
-    <button class="tab"         data-view="history">History</button>
-    <button class="tab"         data-view="channels">Channels</button>
-</nav>
+    <button class="tab" data-view="trending">Trending</button>
+    <button class="tab" data-view="recommended">For You</button>
+    <button class="tab" data-view="history">History</button>
+    <button class="tab" data-view="channels">Channels</button>
+  </nav>
 
-<main id="main"></main>
+  <main id="main"></main>
 
-<!-- =========== MODALS =========== -->
-<div class="modal" id="signInModal">
-  <div class="modal-box">
-    <h3>Sign In</h3>
-    <input id="liUser" placeholder="username"/>
-    <input id="liPass" type="password" placeholder="password"/>
-    <div class="row">
-      <button class="primary" onclick="api.signIn()">Sign In</button>
-      <button onclick="hideModal('signInModal')">Cancel</button>
-    </div>
-    <p class="hint">Try <code>alice</code> (you'll need to register first — the sample data hashes are placeholders).</p>
-  </div>
-</div>
-
-<div class="modal" id="registerModal">
-  <div class="modal-box">
-    <h3>Register</h3>
-    <input id="regUser" placeholder="username"/>
-    <input id="regEmail" placeholder="email"/>
-    <input id="regPass" type="password" placeholder="password (min 6 chars)"/>
-    <input id="regFull" placeholder="full name (optional)"/>
-    <input id="regCountry" placeholder="country (optional)"/>
-    <div class="row">
-      <button class="primary" onclick="api.register()">Register</button>
-      <button onclick="hideModal('registerModal')">Cancel</button>
+  <!-- MODALS -->
+  <div class="modal" id="signInModal">
+    <div class="modal-box">
+      <h3>Sign In</h3>
+      <input id="liUser" placeholder="username" />
+      <input id="liPass" type="password" placeholder="password" />
+      <div class="row">
+        <button class="primary" onclick="api.signIn()">Sign In</button>
+        <button onclick="hideModal('signInModal')">Cancel</button>
+      </div>
+      <p class="hint">Try <code>alice</code> (you'll need to register first — the sample data hashes are placeholders).
+      </p>
     </div>
   </div>
-</div>
 
-<div class="modal" id="playerModal">
-  <div class="modal-box wide">
-    <h3 id="pTitle"></h3>
-    <div class="player-mock" id="playerMock">
-      <span>▶ Pretend video player</span>
-    </div>
-    <div class="meta">
-      <span id="pChannel" class="muted"></span>
-      <span id="pStats" class="muted"></span>
-    </div>
-    <p id="pDesc"></p>
-    <div class="row">
-      <button onclick="api.react(currentVideoId,'LIKE')">👍 Like</button>
-      <button onclick="api.react(currentVideoId,'DISLIKE')">👎 Dislike</button>
-      <button onclick="api.recordWatch(currentVideoId)">✓ Mark watched</button>
-      <button onclick="hideModal('playerModal')">Close</button>
-    </div>
-    <hr/>
-    <h4>Comments</h4>
-    <div id="commentList"></div>
-    <div class="row" id="commentBox" hidden>
-      <input id="newComment" placeholder="Add a comment..."/>
-      <button onclick="api.postComment(currentVideoId)">Post</button>
+  <div class="modal" id="registerModal">
+    <div class="modal-box">
+      <h3>Register</h3>
+      <input id="regUser" placeholder="username" />
+      <input id="regEmail" placeholder="email" />
+      <input id="regPass" type="password" placeholder="password (min 6 chars)" />
+      <input id="regFull" placeholder="full name (optional)" />
+      <input id="regCountry" placeholder="country (optional)" />
+      <div class="row">
+        <button class="primary" onclick="api.register()">Register</button>
+        <button onclick="hideModal('registerModal')">Cancel</button>
+      </div>
     </div>
   </div>
-</div>
 
-<div id="toast" class="toast"></div>
+  <div class="modal" id="playerModal">
+    <div class="modal-box wide">
+      <h3 id="pTitle"></h3>
+      <div class="player-mock" id="playerMock">
+        <span>▶ Pretend video player</span>
+      </div>
+      <div class="meta">
+        <span id="pChannel" class="muted"></span>
+        <span id="pStats" class="muted"></span>
+      </div>
+      <p id="pDesc"></p>
+      <div class="row">
+        <button onclick="api.react(currentVideoId,'LIKE')">👍 Like</button>
+        <button onclick="api.react(currentVideoId,'DISLIKE')">👎 Dislike</button>
+        <button onclick="api.recordWatch(currentVideoId)">✓ Mark watched</button>
+        <button onclick="hideModal('playerModal')">Close</button>
+      </div>
+      <hr />
+      <h4>Comments</h4>
+      <div id="commentList"></div>
+      <div class="row" id="commentBox" hidden>
+        <input id="newComment" placeholder="Add a comment..." />
+        <button onclick="api.postComment(currentVideoId)">Post</button>
+      </div>
+    </div>
+  </div>
 
-<script src="app.js"></script>
+  <div id="toast" class="toast"></div>
+
+  <script src="app.js"></script>
 </body>
+
 </html>

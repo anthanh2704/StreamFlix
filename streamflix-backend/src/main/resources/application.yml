@@ -7,7 +7,7 @@ spring:
   application:
     name: streamflix-backend
 
-  # -------- MySQL (production) --------
+  # MySQL (production)
   datasource:
     url: jdbc:mysql://localhost:3306/streamflix_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
     username: root
@@ -36,7 +36,7 @@ logging:
     org.hibernate.orm.jdbc.bind: TRACE
 
 ---
-# -------- H2 profile for local demo without MySQL --------
+# H2 profile for local demo without MySQL
 spring:
   config:
     activate:

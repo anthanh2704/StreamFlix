@@ -24,7 +24,7 @@ public class AuthController {
         return ApiResponse.ok("Registration successful", UserResponse.fromEntity(u));
     }
 
-    /** Relies on HTTP Basic: if credentials are accepted, returns the current user. */
+    // Relies on HTTP Basic: if credentials are accepted, returns the current user.
     @GetMapping("/me")
     public ApiResponse<UserResponse> me(@AuthenticationPrincipal UserDetails principal) {
         User u = userService.findByUsername(principal.getUsername());

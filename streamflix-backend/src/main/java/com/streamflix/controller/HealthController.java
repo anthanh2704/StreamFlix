@@ -13,7 +13,7 @@ import java.util.Map;
 public class HealthController {
 
     @GetMapping("/health")
-    public ApiResponse<Map<String,Object>> health() {
+    public ApiResponse<Map<String, Object>> health() {
         return ApiResponse.ok(Map.of(
                 "status", "UP",
                 "service", "streamflix-backend",

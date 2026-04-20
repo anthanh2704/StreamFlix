@@ -8,7 +8,11 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "payment")
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Payment {
 
     @Id
@@ -37,6 +41,11 @@ public class Payment {
     @Column(name = "transaction_ref", unique = true, length = 100)
     private String transactionRef;
 
-    public enum Method { CREDIT_CARD, PAYPAL, BANK_TRANSFER, MOMO, ZALOPAY }
-    public enum Status { PENDING, COMPLETED, FAILED, REFUNDED }
+    public enum Method {
+        CREDIT_CARD, PAYPAL, BANK_TRANSFER, MOMO, ZALOPAY
+    }
+
+    public enum Status {
+        PENDING, COMPLETED, FAILED, REFUNDED
+    }
 }

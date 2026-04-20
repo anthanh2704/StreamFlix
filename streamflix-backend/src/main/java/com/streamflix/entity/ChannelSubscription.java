@@ -10,7 +10,11 @@ import java.util.Objects;
 @Entity
 @Table(name = "channel_subscription")
 @IdClass(ChannelSubscription.ChannelSubscriptionId.class)
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class ChannelSubscription {
 
     @Id
@@ -35,19 +39,27 @@ public class ChannelSubscription {
     @JoinColumn(name = "channel_id", insertable = false, updatable = false)
     private Channel channel;
 
-    @Getter @Setter @NoArgsConstructor @AllArgsConstructor
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class ChannelSubscriptionId implements Serializable {
         private Long subscriberUserId;
         private Long channelId;
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (!(o instanceof ChannelSubscriptionId that)) return false;
+            if (this == o)
+                return true;
+            if (!(o instanceof ChannelSubscriptionId that))
+                return false;
             return Objects.equals(subscriberUserId, that.subscriberUserId) &&
-                   Objects.equals(channelId, that.channelId);
+                    Objects.equals(channelId, that.channelId);
         }
+
         @Override
-        public int hashCode() { return Objects.hash(subscriberUserId, channelId); }
+        public int hashCode() {
+            return Objects.hash(subscriberUserId, channelId);
+        }
     }
 }

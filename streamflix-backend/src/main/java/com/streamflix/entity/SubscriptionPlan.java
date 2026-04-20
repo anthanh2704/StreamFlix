@@ -7,7 +7,11 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "subscription_plan")
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class SubscriptionPlan {
 
     @Id

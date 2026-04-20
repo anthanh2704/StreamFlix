@@ -1,13 +1,11 @@
-// ============================================================
 // StreamFlix demo frontend — talks to the Spring Boot backend
-// ============================================================
 
 const API_BASE = "http://localhost:8080/api";
-let   credentials = null;          // { username, basic: "Basic base64(...)" }
-let   currentVideoId = null;
+let credentials = null;          // { username, basic: "Basic base64(...)" }
+let currentVideoId = null;
 
-// ---------- Utilities ----------
-const $  = (q) => document.querySelector(q);
+// Utilities
+const $ = (q) => document.querySelector(q);
 const $$ = (q) => document.querySelectorAll(q);
 
 function toast(msg, cls = "") {
@@ -27,7 +25,7 @@ async function http(method, path, body) {
         body: body ? JSON.stringify(body) : undefined,
     });
     let data = null;
-    try { data = await res.json(); } catch {}
+    try { data = await res.json(); } catch { }
     if (!res.ok) {
         const msg = data?.message || res.statusText;
         throw new Error(msg);
@@ -38,21 +36,21 @@ async function http(method, path, body) {
 function setAuth(username, password) {
     credentials = { username, basic: "Basic " + btoa(username + ":" + password) };
     $("#authStatus").textContent = "Signed in as " + username;
-    $("#signInBtn").hidden   = true;
+    $("#signInBtn").hidden = true;
     $("#registerBtn").hidden = true;
-    $("#signOutBtn").hidden  = false;
-    $("#commentBox").hidden  = false;
+    $("#signOutBtn").hidden = false;
+    $("#commentBox").hidden = false;
 }
 function clearAuth() {
     credentials = null;
     $("#authStatus").textContent = "Not signed in";
-    $("#signInBtn").hidden   = false;
+    $("#signInBtn").hidden = false;
     $("#registerBtn").hidden = false;
-    $("#signOutBtn").hidden  = true;
-    $("#commentBox").hidden  = true;
+    $("#signOutBtn").hidden = true;
+    $("#commentBox").hidden = true;
 }
 
-// ---------- API calls ----------
+// API calls
 const api = {
     async signIn() {
         const user = $("#liUser").value.trim();
@@ -75,10 +73,10 @@ const api = {
     async register() {
         const body = {
             username: $("#regUser").value.trim(),
-            email:    $("#regEmail").value.trim(),
+            email: $("#regEmail").value.trim(),
             password: $("#regPass").value,
             fullName: $("#regFull").value.trim() || null,
-            country:  $("#regCountry").value.trim() || null,
+            country: $("#regCountry").value.trim() || null,
         };
         try {
             await http("POST", "/auth/register", body);
@@ -92,11 +90,11 @@ const api = {
     },
 
     async listVideos() { return (await http("GET", "/videos?page=0&size=24")).data; },
-    async trending()   { return (await http("GET", "/videos/trending?days=30&limit=12")).data; },
-    async recommended(){ return (await http("GET", "/videos/recommendations?limit=12")).data; },
-    async history()    { return (await http("GET", "/users/me/history?page=0&size=20")).data; },
-    async channels()   { return (await http("GET", "/channels")).data; },
-    async search(q)    { return (await http("GET", "/videos/search?q=" + encodeURIComponent(q) + "&size=24")).data; },
+    async trending() { return (await http("GET", "/videos/trending?days=30&limit=12")).data; },
+    async recommended() { return (await http("GET", "/videos/recommendations?limit=12")).data; },
+    async history() { return (await http("GET", "/users/me/history?page=0&size=20")).data; },
+    async channels() { return (await http("GET", "/channels")).data; },
+    async search(q) { return (await http("GET", "/videos/search?q=" + encodeURIComponent(q) + "&size=24")).data; },
 
     async openVideo(id) {
         currentVideoId = id;
@@ -157,9 +155,9 @@ const api = {
     },
 };
 
-// ---------- Rendering ----------
+// Rendering
 function escapeHtml(s) {
-    return (s || "").replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    return (s || "").replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 function videoCard(v) {
     return `<div class="card" onclick="api.openVideo(${v.videoId})">
@@ -201,16 +199,16 @@ async function render() {
             const items = page.content || [];
             main.innerHTML = `<h2>📜 Watch History</h2>
                               <div class="grid">${items.map(h =>
-                                  videoCard(h.video).replace('</div></div>',
-                                      `<div class="muted" style="font-size:12px;margin-top:4px">
+                videoCard(h.video).replace('</div></div>',
+                    `<div class="muted" style="font-size:12px;margin-top:4px">
                                        Watched ${new Date(h.watchedAt).toLocaleString()}</div></div></div>`))
-                              .join("") || '<p class="empty">No history yet.</p>'}</div>`;
+                    .join("") || '<p class="empty">No history yet.</p>'}</div>`;
         }
         else if (currentView === "channels") {
             const items = await api.channels();
             main.innerHTML = `<h2>📺 Channels</h2>
                               <div class="grid">${items.map(c =>
-                                  `<div class="channel-card">
+                `<div class="channel-card">
                                      <h3>${escapeHtml(c.name)}</h3>
                                      <div class="muted">by ${escapeHtml(c.ownerUsername || '')}</div>
                                      <div class="stats">${c.subscriberCount} subscribers</div>
@@ -222,7 +220,7 @@ async function render() {
     }
 }
 
-// ---------- Wire up events ----------
+// Wire up events
 $$(".tab").forEach(t => t.addEventListener("click", () => {
     $$(".tab").forEach(x => x.classList.remove("active"));
     t.classList.add("active");
@@ -230,9 +228,9 @@ $$(".tab").forEach(t => t.addEventListener("click", () => {
     render();
 }));
 
-$("#signInBtn").onclick   = () => showModal("signInModal");
+$("#signInBtn").onclick = () => showModal("signInModal");
 $("#registerBtn").onclick = () => showModal("registerModal");
-$("#signOutBtn").onclick  = () => { clearAuth(); render(); toast("Signed out"); };
+$("#signOutBtn").onclick = () => { clearAuth(); render(); toast("Signed out"); };
 
 let searchTimer;
 $("#search").addEventListener("input", (e) => {

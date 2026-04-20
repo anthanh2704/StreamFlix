@@ -8,7 +8,11 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "app_user")
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class User {
 
     @Id
@@ -50,5 +54,7 @@ public class User {
     @Column(name = "last_login")
     private LocalDateTime lastLogin;
 
-    public enum Role { USER, CREATOR, ADMIN }
+    public enum Role {
+        USER, CREATOR, ADMIN
+    }
 }

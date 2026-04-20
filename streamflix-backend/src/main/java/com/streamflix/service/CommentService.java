@@ -20,11 +20,11 @@ import java.util.List;
 public class CommentService {
 
     private final CommentRepository commentRepository;
-    private final UserService       userService;
-    private final VideoService      videoService;
+    private final UserService userService;
+    private final VideoService videoService;
 
     public Comment post(Long userId, Long videoId, CommentDto.Request req) {
-        User  user  = userService.findById(userId);
+        User user = userService.findById(userId);
         Video video = videoService.findById(videoId);
 
         Comment parent = null;

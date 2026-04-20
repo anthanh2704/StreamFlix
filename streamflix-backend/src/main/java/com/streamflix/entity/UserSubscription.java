@@ -7,7 +7,11 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "user_subscription")
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class UserSubscription {
 
     @Id
@@ -36,5 +40,7 @@ public class UserSubscription {
     @Column(name = "auto_renew")
     private Boolean autoRenew = true;
 
-    public enum Status { ACTIVE, EXPIRED, CANCELLED }
+    public enum Status {
+        ACTIVE, EXPIRED, CANCELLED
+    }
 }

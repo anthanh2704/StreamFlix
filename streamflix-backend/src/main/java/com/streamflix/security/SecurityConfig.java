@@ -12,7 +12,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.List;
 
-/**
+/*
  * Minimal stateless security configuration:
  *  - HTTP Basic authentication (fine for a course project; replace with JWT in production).
  *  - Password storage via BCrypt.
@@ -42,23 +42,24 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .cors(c -> c.configurationSource(corsConfigurationSource()))
-            .csrf(csrf -> csrf.disable())
-            .authorizeHttpRequests(auth -> auth
-                // Public: registration + browsing
-                .requestMatchers(
-                        "/auth/**",
-                        "/videos/**",
-                        "/channels/**",
-                        "/categories/**",
-                        "/h2/**",
-                        "/v3/api-docs/**",
-                        "/swagger-ui/**"
-                ).permitAll()
-                // Everything else requires authentication
-                .anyRequest().authenticated())
-            .httpBasic(b -> {})
-            .headers(h -> h.frameOptions(f -> f.disable()));   // allow H2 console
+                .cors(c -> c.configurationSource(corsConfigurationSource()))
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth
+                        // Public: registration + browsing
+                        .requestMatchers(
+                                "/auth/**",
+                                "/videos/**",
+                                "/channels/**",
+                                "/categories/**",
+                                "/h2/**",
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**")
+                        .permitAll()
+                        // Everything else requires authentication
+                        .anyRequest().authenticated())
+                .httpBasic(b -> {
+                })
+                .headers(h -> h.frameOptions(f -> f.disable())); // allow H2 console
 
         return http.build();
     }

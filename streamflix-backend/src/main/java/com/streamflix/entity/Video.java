@@ -8,12 +8,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "video",
-       indexes = {
-           @Index(name = "idx_video_upload", columnList = "upload_date DESC"),
-           @Index(name = "idx_video_views",  columnList = "views_count DESC")
-       })
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
+@Table(name = "video", indexes = {
+        @Index(name = "idx_video_upload", columnList = "upload_date DESC"),
+        @Index(name = "idx_video_views", columnList = "views_count DESC")
+})
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Video {
 
     @Id
@@ -64,19 +67,17 @@ public class Video {
 
     // M:N categories
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "video_category",
-               joinColumns        = @JoinColumn(name = "video_id"),
-               inverseJoinColumns = @JoinColumn(name = "category_id"))
+    @JoinTable(name = "video_category", joinColumns = @JoinColumn(name = "video_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
     @Builder.Default
     private Set<Category> categories = new HashSet<>();
 
     // M:N tags
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "video_tag",
-               joinColumns        = @JoinColumn(name = "video_id"),
-               inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    @JoinTable(name = "video_tag", joinColumns = @JoinColumn(name = "video_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
     @Builder.Default
     private Set<Tag> tags = new HashSet<>();
 
-    public enum Status { DRAFT, PUBLISHED, PRIVATE, REMOVED }
+    public enum Status {
+        DRAFT, PUBLISHED, PRIVATE, REMOVED
+    }
 }

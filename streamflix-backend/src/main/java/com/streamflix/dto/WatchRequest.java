@@ -7,5 +7,5 @@ import java.math.BigDecimal;
 public record WatchRequest(
         @PositiveOrZero Integer watchDuration,
         BigDecimal progressPct,
-        String deviceType
-) {}
+        String deviceType) {
+}

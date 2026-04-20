@@ -13,8 +13,7 @@ public record UserResponse(
         String avatarUrl,
         String role,
         Boolean isActive,
-        LocalDateTime createdAt
-) {
+        LocalDateTime createdAt) {
     public static UserResponse fromEntity(User u) {
         return new UserResponse(
                 u.getUserId(),

@@ -10,7 +10,11 @@ import java.util.Objects;
 @Entity
 @Table(name = "playlist_video")
 @IdClass(PlaylistVideo.PlaylistVideoId.class)
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class PlaylistVideo {
 
     @Id
@@ -35,19 +39,27 @@ public class PlaylistVideo {
     @JoinColumn(name = "video_id", insertable = false, updatable = false)
     private Video video;
 
-    @Getter @Setter @NoArgsConstructor @AllArgsConstructor
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class PlaylistVideoId implements Serializable {
         private Long playlistId;
         private Long videoId;
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (!(o instanceof PlaylistVideoId that)) return false;
+            if (this == o)
+                return true;
+            if (!(o instanceof PlaylistVideoId that))
+                return false;
             return Objects.equals(playlistId, that.playlistId) &&
-                   Objects.equals(videoId, that.videoId);
+                    Objects.equals(videoId, that.videoId);
         }
+
         @Override
-        public int hashCode() { return Objects.hash(playlistId, videoId); }
+        public int hashCode() {
+            return Objects.hash(playlistId, videoId);
+        }
     }
 }

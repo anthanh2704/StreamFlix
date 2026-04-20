@@ -22,11 +22,11 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserService  userService;
+    private final UserService userService;
     private final WatchService watchService;
 
     public record HistoryItem(Long historyId, VideoResponse video,
-                               Integer watchDuration, LocalDateTime watchedAt, String deviceType) {
+            Integer watchDuration, LocalDateTime watchedAt, String deviceType) {
         public static HistoryItem from(WatchHistory h) {
             return new HistoryItem(
                     h.getHistoryId(),
@@ -45,11 +45,11 @@ public class UserController {
 
     @GetMapping("/me/history")
     public ApiResponse<Page<HistoryItem>> myHistory(
-            @RequestParam(defaultValue = "0")  int page,
+            @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size,
             @AuthenticationPrincipal UserDetails principal) {
         Long userId = userService.findByUsername(principal.getUsername()).getUserId();
-        Pageable p  = PageRequest.of(page, size);
+        Pageable p = PageRequest.of(page, size);
         return ApiResponse.ok(watchService.history(userId, p).map(HistoryItem::from));
     }
 }

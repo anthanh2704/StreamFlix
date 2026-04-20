@@ -15,10 +15,10 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
 
     // Top-level comments on a video (no parent)
     @Query("""
-           SELECT c FROM Comment c
-           WHERE c.video.videoId = :videoId AND c.parent IS NULL
-           ORDER BY c.createdAt DESC
-           """)
+            SELECT c FROM Comment c
+            WHERE c.video.videoId = :videoId AND c.parent IS NULL
+            ORDER BY c.createdAt DESC
+            """)
     Page<Comment> findTopLevelByVideo(@Param("videoId") Long videoId, Pageable pageable);
 
     // Replies to a given comment

@@ -9,8 +9,8 @@ public class CommentDto {
 
     public record Request(
             @NotBlank String content,
-            Long parentCommentId
-    ) {}
+            Long parentCommentId) {
+    }
 
     public record Response(
             Long commentId,
@@ -20,14 +20,13 @@ public class CommentDto {
             Long parentCommentId,
             String content,
             Integer likesCount,
-            LocalDateTime createdAt
-    ) {
+            LocalDateTime createdAt) {
         public static Response fromEntity(Comment c) {
             return new Response(
                     c.getCommentId(),
                     c.getVideo() != null ? c.getVideo().getVideoId() : null,
-                    c.getUser()  != null ? c.getUser().getUserId()   : null,
-                    c.getUser()  != null ? c.getUser().getUsername() : null,
+                    c.getUser() != null ? c.getUser().getUserId() : null,
+                    c.getUser() != null ? c.getUser().getUsername() : null,
                     c.getParent() != null ? c.getParent().getCommentId() : null,
                     c.getContent(),
                     c.getLikesCount(),

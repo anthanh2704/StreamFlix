@@ -19,19 +19,20 @@ import java.math.BigDecimal;
 public class WatchService {
 
     private final WatchHistoryRepository historyRepository;
-    private final UserService            userService;
-    private final VideoService           videoService;
+    private final UserService userService;
+    private final VideoService videoService;
 
-    /** Record a watch event. The trigger on watch_history increments video.views_count. */
+    // Record a watch event. The trigger on watch_history increments
+    // video.views_count.
     public WatchHistory record(Long userId, Long videoId, WatchRequest req) {
-        User  user  = userService.findById(userId);
+        User user = userService.findById(userId);
         Video video = videoService.findById(videoId);
 
         WatchHistory h = WatchHistory.builder()
                 .user(user)
                 .video(video)
                 .watchDuration(req.watchDuration() != null ? req.watchDuration() : 0)
-                .progressPct(req.progressPct()   != null ? req.progressPct() : BigDecimal.ZERO)
+                .progressPct(req.progressPct() != null ? req.progressPct() : BigDecimal.ZERO)
                 .deviceType(req.deviceType())
                 .build();
         return historyRepository.save(h);

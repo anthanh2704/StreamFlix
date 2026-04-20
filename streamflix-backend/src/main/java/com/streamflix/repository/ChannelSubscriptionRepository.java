@@ -12,6 +12,8 @@ public interface ChannelSubscriptionRepository
         extends JpaRepository<ChannelSubscription, ChannelSubscriptionId> {
 
     List<ChannelSubscription> findBySubscriberUserId(Long userId);
+
     List<ChannelSubscription> findByChannelId(Long channelId);
+
     boolean existsBySubscriberUserIdAndChannelId(Long userId, Long channelId);
 }

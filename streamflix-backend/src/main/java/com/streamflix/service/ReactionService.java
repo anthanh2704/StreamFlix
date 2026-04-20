@@ -12,14 +12,14 @@ import org.springframework.transaction.annotation.Transactional;
 public class ReactionService {
 
     private final VideoReactionRepository reactionRepository;
-    private final UserService             userService;
-    private final VideoService            videoService;
+    private final UserService userService;
+    private final VideoService videoService;
 
-    /**
+    /*
      * Toggle a user's reaction on a video.
-     *  - If no reaction yet  → insert (trigger auto-increments video counters)
-     *  - If same reaction    → remove (trigger auto-decrements)
-     *  - If opposite reaction → update reaction column (counters adjusted manually)
+     * - If no reaction yet → insert (trigger auto-increments video counters)
+     * - If same reaction → remove (trigger auto-decrements)
+     * - If opposite reaction → update reaction column (counters adjusted manually)
      */
     public String react(Long userId, Long videoId, VideoReaction.Reaction target) {
         userService.findById(userId);

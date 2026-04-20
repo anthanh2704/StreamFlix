@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/** Bridges our User entity to Spring Security's UserDetails contract. */
+// Bridges our User entity to Spring Security's UserDetails contract.
 @Service
 @RequiredArgsConstructor
 public class AppUserDetailsService implements UserDetailsService {

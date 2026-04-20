@@ -7,9 +7,12 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "watch_history",
-       indexes = @Index(name = "idx_history_user_time", columnList = "user_id, watched_at DESC"))
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
+@Table(name = "watch_history", indexes = @Index(name = "idx_history_user_time", columnList = "user_id, watched_at DESC"))
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class WatchHistory {
 
     @Id

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.stream.Collectors;
 
-/** Centralised exception → JSON converter. */
+/* Centralised exception → JSON converter. */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 

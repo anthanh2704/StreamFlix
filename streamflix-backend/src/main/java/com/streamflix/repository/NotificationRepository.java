@@ -9,5 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface NotificationRepository extends JpaRepository<Notification, Long> {
     Page<Notification> findByUserUserIdOrderByCreatedAtDesc(Long userId, Pageable pageable);
+
     long countByUserUserIdAndIsReadFalse(Long userId);
 }

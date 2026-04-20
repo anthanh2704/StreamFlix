@@ -1,13 +1,9 @@
--- =====================================================================
 -- StreamFlix - Query Catalogue
 -- Demonstrates: SELECT / JOIN / GROUP BY / HAVING / subqueries /
 -- CTEs / window functions / set operations.
--- =====================================================================
 USE streamflix_db;
 
--- ---------------------------------------------------------------------
 -- BASIC QUERIES
--- ---------------------------------------------------------------------
 
 -- Q1. List all published videos with their channel name
 SELECT v.video_id, v.title, c.channel_name, v.views_count
@@ -41,9 +37,7 @@ WHERE  MATCH(title, description) AGAINST ('iphone review' IN NATURAL LANGUAGE MO
 ORDER  BY score DESC;
 
 
--- ---------------------------------------------------------------------
 -- JOINS
--- ---------------------------------------------------------------------
 
 -- Q6. Videos with every category they belong to (M:N join)
 SELECT v.title, GROUP_CONCAT(cat.name ORDER BY cat.name SEPARATOR ', ') AS categories
@@ -67,9 +61,7 @@ WHERE  h.history_id IS NULL
   AND  u.role <> 'ADMIN';
 
 
--- ---------------------------------------------------------------------
 -- AGGREGATES / GROUP BY / HAVING
--- ---------------------------------------------------------------------
 
 -- Q9. Videos per channel
 SELECT c.channel_name, COUNT(v.video_id) AS total_videos
@@ -106,9 +98,7 @@ GROUP  BY DATE(created_at)
 ORDER  BY day;
 
 
--- ---------------------------------------------------------------------
 -- SUBQUERIES
--- ---------------------------------------------------------------------
 
 -- Q13. Videos whose view count is above the average
 SELECT title, views_count
@@ -147,9 +137,7 @@ WHERE  u.user_id IN (
             AND  vr.reaction   = 'LIKE');
 
 
--- ---------------------------------------------------------------------
 -- SET OPERATIONS
--- ---------------------------------------------------------------------
 
 -- Q17. Users who are creators OR have an active paid plan (UNION)
 SELECT user_id, username, 'creator' AS reason FROM app_user WHERE role = 'CREATOR'
@@ -167,9 +155,7 @@ JOIN   watch_history h ON h.user_id = u.user_id
 WHERE  u.user_id NOT IN (SELECT user_id FROM comment);
 
 
--- ---------------------------------------------------------------------
 -- CTEs AND WINDOW FUNCTIONS (advanced / analytics)
--- ---------------------------------------------------------------------
 
 -- Q19. Top-3 most viewed videos per channel (CTE + ROW_NUMBER)
 WITH ranked AS (
@@ -228,7 +214,7 @@ JOIN   app_user u ON u.user_id = us.user_id
 WHERE  p.status = 'COMPLETED'
 GROUP  BY u.country, sp.plan_name WITH ROLLUP;
 
--- Q24. Engagement score per video: views + 2*likes – dislikes
+-- Q24. Engagement score per video: views + 2*likes - dislikes
 SELECT v.video_id, v.title,
        v.views_count,
        v.likes_count,

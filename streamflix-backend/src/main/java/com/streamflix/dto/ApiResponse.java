@@ -1,6 +1,6 @@
 package com.streamflix.dto;
 
-/** Generic envelope for all successful API responses. */
+// Generic envelope for all successful API responses.
 public record ApiResponse<T>(boolean success, String message, T data) {
 
     public static <T> ApiResponse<T> ok(T data) {

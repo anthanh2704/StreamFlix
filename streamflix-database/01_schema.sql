@@ -1,17 +1,13 @@
--- =====================================================================
 -- StreamFlix - Video Streaming Database Schema
 -- Principles of Database Management (IT079IU)
 -- Database: MySQL 8.0+
 -- Normalization: 3NF / BCNF where applicable
--- =====================================================================
 
 DROP DATABASE IF EXISTS streamflix_db;
 CREATE DATABASE streamflix_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE streamflix_db;
 
--- =====================================================================
 -- 1. USER PROFILES AND AUTHENTICATION
--- =====================================================================
 
 -- Subscription plans (Basic, Premium, Family, etc.)
 CREATE TABLE subscription_plan (
@@ -66,9 +62,7 @@ CREATE TABLE payment (
     FOREIGN KEY (subscription_id) REFERENCES user_subscription(subscription_id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
--- =====================================================================
 -- 2. CONTENT MANAGEMENT (Channels, Categories, Videos)
--- =====================================================================
 
 -- A channel is owned by a user (creator). 1:1 in this simplified model
 CREATE TABLE channel (
@@ -134,9 +128,7 @@ CREATE TABLE video_tag (
     FOREIGN KEY (tag_id)   REFERENCES tag(tag_id)     ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
--- =====================================================================
 -- 3. USER INTERACTION
--- =====================================================================
 
 -- A user subscribes to a channel (not the platform plan)
 CREATE TABLE channel_subscription (
@@ -223,9 +215,7 @@ CREATE TABLE notification (
     INDEX idx_notif_user_read (user_id, is_read, created_at DESC)
 ) ENGINE=InnoDB;
 
--- =====================================================================
 -- 4. TRIGGERS – keep denormalized counters in sync
--- =====================================================================
 
 DELIMITER $$
 
@@ -283,9 +273,7 @@ END$$
 
 DELIMITER ;
 
--- =====================================================================
 -- 5. VIEWS – useful read-only projections for the recommendation engine
--- =====================================================================
 
 -- Trending videos: high views in the last 7 days
 CREATE OR REPLACE VIEW vw_trending_videos AS

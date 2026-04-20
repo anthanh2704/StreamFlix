@@ -21,13 +21,13 @@ import java.util.List;
 public class CommentController {
 
     private final CommentService commentService;
-    private final UserService    userService;
+    private final UserService userService;
 
     /** Top-level comments for a video (public). */
     @GetMapping("/video/{videoId}")
     public ApiResponse<Page<CommentDto.Response>> list(
             @PathVariable Long videoId,
-            @RequestParam(defaultValue = "0")  int page,
+            @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {
         Pageable p = PageRequest.of(page, size);
         return ApiResponse.ok(commentService.topLevel(videoId, p).map(CommentDto.Response::fromEntity));
