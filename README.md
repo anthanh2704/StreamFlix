@@ -177,15 +177,11 @@ See `docs/` for the full ERD, relational schema, and normalization analysis.
 | ---- | ---------- | ---- |
 |Võ Gia Bảo  |     ITCSIU24010       | Team Leader |
 |   Nguyễn Hà An Thạnh   |   ITITWE22051         | Member |
-|      |            | Member |
-   Team Leader
-2   ERD & relational mapping
-3 Trần Đức Mạnh ITCSIU22303 Normalization
-4 Nguyễn Quốc Trung Kiên ITCSIU24046 Database implementation
-5 Nguyễn Minh Nhật ITITWE24060 SQL queries & relational algebra
-6 Võ Ngọc Anh Thư ITITIU23036 Spring Data JPA backend &
-JavaFX client
-7 Trần Đức Phong ITITIU22123 REST APIs, security & JWT
+|     Trần Đức Mạnh |     ITCSIU22303       | Member |
+|Nguyễn Quốc Trung Kiên |  ITCSIU24046| Member |
+|Nguyễn Minh Nhật| ITITWE24060| Member |
+|Võ Ngọc Anh Thư| ITITIU23036 | Member |
+|Trần Đức Phong| ITITIU22123 | Member |
 
 ## 👨‍🏫 Instructor
 
